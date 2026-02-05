@@ -18,23 +18,29 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
-	// --- USTAWIENIA DLA CIEBIE ---
+	// --- KONFIGURACJA TRASY ---
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	bool bMoveX = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Sequence")
+	float XDistance = 500.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	bool bMoveY = false;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Sequence")
+	float YDistance = 500.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	bool bMoveZ = true;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Sequence")
+	float ZDistance = 500.0f; // Nowa oœ Z
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	float Distance = 200.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Sequence")
+	float Speed = 300.0f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement")
-	float Speed = 2.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement Sequence")
+	float StartDelay = 0.0f; // Czas oczekiwania przed pierwszym ruchem
 
 private:
-	FVector InitialLocation;
+	FVector StartLocation;
+	TArray<FVector> Targets;
+	int32 CurrentTargetIndex = 0;
+	float DelayTimer = 0.0f;
+	bool bCanMove = false;
+
+	void SetupRoute();
 };
